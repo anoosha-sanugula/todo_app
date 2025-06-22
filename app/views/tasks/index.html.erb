@@ -1,0 +1,72 @@
+<div class="mb-4">
+  <%= form_with url: tasks_path, method: :get, local: true, class: 'd-flex flex-wrap gap-3 align-items-center' do %>
+    <div class="d-flex align-items-center gap-2">
+      <%= label_tag :year, "Year:", class: "mb-0" %>
+      <%= select_tag :year, options_for_select((2023..Date.today.year).to_a.reverse, params[:year]), prompt: 'Select Year', class: 'form-select' %>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <%= label_tag :month, "Month:", class: "mb-0" %>
+      <%= select_tag :month, options_for_select(Date::MONTHNAMES.compact.each_with_index.map { |m, i| [m, i + 1] }, params[:month]), prompt: 'Select Month', class: 'form-select' %>
+    </div>
+
+    <div>
+      <%= submit_tag 'Filter', class: 'btn btn-info' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="mb-3 d-flex gap-2 flex-wrap">
+  <%= link_to 'All Tasks', tasks_path(year: params[:year], month: params[:month]), class: 'btn btn-outline-primary' %>
+  <%= link_to 'Completed', tasks_path(filter: 'completed', year: params[:year], month: params[:month]), class: 'btn btn-outline-success' %>
+  <%= link_to 'Pending', tasks_path(filter: 'pending', year: params[:year], month: params[:month]), class: 'btn btn-outline-warning' %>
+</div>
+
+<% if params[:year].present? || params[:month].present? || params[:filter].present? %>
+  <div class="alert alert-secondary d-flex gap-2 align-items-center flex-wrap">
+    🔍 Showing
+    <%= case params[:filter]
+        when 'completed' then 'completed tasks'
+        when 'pending' then 'pending tasks'
+        else 'all tasks'
+      end
+    %>
+    <% if params[:month].present? %>
+      for <strong><%= Date::MONTHNAMES[params[:month].to_i] rescue "Invalid Month" %></strong>
+    <% end %>
+    <% if params[:year].present? %>
+      <strong><%= params[:year] %></strong>
+    <% end %>
+  </div>
+<% end %>
+
+<% if @tasks.empty? %>
+  <p class="text-muted text-center">No tasks exist for the selected filter and period.</p>
+<% else %>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Completed</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+        <tr>
+          <td><%= task.title %></td>
+          <td><%= task.completed ? "✅" : "❌" %></td>
+          <td>
+            <div class="d-flex gap-2">
+              <%= link_to 'Show', task, class: 'btn btn-primary btn-sm' %>
+              <%= link_to 'Edit', edit_task_path(task), class: 'btn btn-warning btn-sm' %>
+              <%= button_to 'Destroy', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to 'New Task', new_task_path, class: 'btn btn-success mt-3' %>

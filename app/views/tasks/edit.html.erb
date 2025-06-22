@@ -1,0 +1,17 @@
+<h1><%= @task.new_record? ? "New Task" : "Edit Task" %></h1>
+
+<%= form_with model: @task do |f| %>
+  <div>
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :completed %><br>
+    <%= f.check_box :completed %>
+  </div>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
