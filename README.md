@@ -1,25 +1,78 @@
-# README
+# 📝 To-Do App with User Authentication
+A simple and responsive To-Do List Web Application built with Ruby on Rails, styled with Bootstrap, and featuring user registration & login via Devise. Each user can manage their own tasks with filters for completion status and creation date.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 📸 Features
+✅ User Registration & Login (Devise)
 
-Things you may want to cover:
+🔐 Session management (Logout, flash messages)
 
-* Ruby version
+🗃️ Task CRUD (Create, Read, Update, Delete)
 
-* System dependencies
+🗓️ Filter by:
 
-* Configuration
+- Task completion (All, Completed, Pending)
 
-* Database creation
+- Year and Month of creation
 
-* Database initialization
+🧑 Tasks are scoped per user
 
-* How to run the test suite
+🎨 Clean UI using Bootstrap 5
 
-* Services (job queues, cache servers, search engines, etc.)
+## 💻 Tech Stack
+- Ruby on Rails 7+
 
-* Deployment instructions
+- PostgreSQL (Database)
 
-* ...
-# todo_app
+- Devise (Authentication)
+
+- Bootstrap 5 (Styling)
+
+- Turbo / Hotwire (Navigation)
+
+## 🚀 Getting Started
+1. Clone the Repo by using the following:
+
+       git clone https://github.com/anoosha-sanugula/todo_app.git
+
+2. Go to the project directory:
+
+       cd todo_app_demo
+
+2. Install Dependencies
+
+       bundle install
+3. Database Setup
+
+       rails db:create
+       rails db:migrate
+
+4. Run the Server
+
+       rails server
+
+
+## 🔑 Default Routes
+
+- /users/sign_up ==> User Registration
+- /users/sign_in ==> User Login
+- /tasks ==> Task Dashboard (after login)
+
+## 🧪 Sample Features
+
+- Create Task: Add new task from "New Task" button.
+
+- Edit/Delete: Available per task.
+
+- Filter: Use status buttons and date dropdowns.
+
+- Auth Guard: Only signed-in users can access /tasks.
+
+## 🛡️ Devise Configuration
+Devise handles:
+
+- User sign up / login / logout
+
+- Password encryption & validation
+
+- Session persistence
+
