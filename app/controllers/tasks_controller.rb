@@ -20,9 +20,9 @@ class TasksController < ApplicationController
     end
 
     case params[:filter]
-    when 'completed'
+    when "completed"
       @tasks = @tasks.where(completed: true)
-    when 'pending'
+    when "pending"
       @tasks = @tasks.where(completed: false)
     end
   end
